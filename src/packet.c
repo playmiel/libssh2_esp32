@@ -141,9 +141,10 @@ packet_queue_listener(LIBSSH2_SESSION * session, unsigned char *data,
                         listen_state->host_len) == 0)) {
                 /* This is our listener */
                 LIBSSH2_CHANNEL *channel = NULL;
-                listen_state->channel = NULL;
+                
 
                 if(listen_state->state == libssh2_NB_state_allocated) {
+                  listen_state->channel = NULL;
                     if(listn->queue_maxsize &&
                         (listn->queue_maxsize <= listn->queue_size)) {
                         /* Queue is full */
