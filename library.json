@@ -1,6 +1,6 @@
 {
   "name": "libssh2_esp",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "libssh2 port for ESP32 with Arduino and ESP-IDF framework support (integrated directly)",
   "keywords": ["ssh", "libssh2", "esp32", "networking", "security", "arduino", "espidf"],
   "repository": {

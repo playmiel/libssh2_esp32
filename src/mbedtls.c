@@ -514,6 +514,12 @@ _libssh2_mbedtls_rsa_new_private_frommemory(libssh2_rsa_ctx **rsa,
     if(!*rsa)
         return -1;
 
+#if MBEDTLS_VERSION_NUMBER >= 0x03000000
+    mbedtls_rsa_init(*rsa);
+#else
+    mbedtls_rsa_init(*rsa, MBEDTLS_RSA_PKCS_V15, 0);
+#endif
+
     /*
     mbedtls checks in "mbedtls/pkparse.c:1184" if "key[keylen - 1] != '\0'"
     private-key from memory will fail if the last byte is not a null byte
@@ -707,6 +713,7 @@ gen_publickey_from_rsa(LIBSSH2_SESSION *session,
 
     e_bytes = (uint32_t)mbedtls_mpi_size(&rsa->MBEDTLS_PRIVATE(E));
     n_bytes = (uint32_t)mbedtls_mpi_size(&rsa->MBEDTLS_PRIVATE(N));
+    n_bytes++;      /* Include the leading zero byte in the allocation. */
 
     /* Key form is "ssh-rsa" + e + n. */
     len = 4 + 7 + 4 + e_bytes + 4 + n_bytes;
@@ -728,7 +735,6 @@ gen_publickey_from_rsa(LIBSSH2_SESSION *session,
     p += 4;
     mbedtls_mpi_write_binary(&rsa->MBEDTLS_PRIVATE(E), p, e_bytes);
     p += e_bytes;   /* Increment write index after writing to buffer */
-    n_bytes++;      /* Add 1 to bignum size */
 
     _libssh2_htonu32(p, n_bytes);
     p += 4;
@@ -749,7 +755,7 @@ _libssh2_mbedtls_pub_priv_key(LIBSSH2_SESSION *session,
 {
     unsigned char *key = NULL, *mth = NULL;
     size_t keylen = 0, mthlen = 0;
-    int ret;
+    int ret = 0;
     mbedtls_rsa_context *rsa;
 
     if(mbedtls_pk_get_type(pkey) != MBEDTLS_PK_RSA) {
