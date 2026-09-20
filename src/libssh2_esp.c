@@ -98,7 +98,7 @@ int libssh2_esp_socket_connect(const char* hostname, int port) {
     memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
     sin.sin_port = htons(port);
-    memcpy(&sin.sin_addr, he->h_addr_list[0], he->h_length);
+    memcpy(&sin.sin_addr, he->h_addr_list[0], sizeof(sin.sin_addr)); 
     
     // Connect
     if (connect(sock, (struct sockaddr*)&sin, sizeof(sin)) != 0) {
