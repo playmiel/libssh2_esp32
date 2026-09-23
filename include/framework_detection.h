@@ -34,14 +34,14 @@
     #endif
     #include <lwip/sockets.h>
     
-#elif defined(ESP_IDF) || defined(IDF_VER)
+#elif defined(ESP_PLATFORM) || defined(ESP_IDF) || defined(IDF_VER)
     #define LIBSSH2_ESP_IDF
     #define LIBSSH2_ESP_FRAMEWORK "ESP-IDF"
     
     // ESP-IDF specific includes
     #include "esp_system.h"
-    #include "esp_wifi.h"
     #include "esp_log.h"
+    #include "esp_timer.h"
     #include "lwip/sockets.h"
     #include "lwip/netdb.h"
     #include "lwip/inet.h"
