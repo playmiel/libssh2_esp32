@@ -1,6 +1,6 @@
 version: "1.0.0"
 description: "A port of libssh2 as an ESP-IDF component"
-url: "https://github.com/skuodi/libssh2_esp"
+url: "https://github.com/playmiel/libssh2_esp32"
 license: "BSD-3-Clause"
 tags:
   - ssh

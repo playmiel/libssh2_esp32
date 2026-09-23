@@ -5,7 +5,7 @@
   "keywords": ["ssh", "libssh2", "esp32", "networking", "security", "arduino", "espidf"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/playmiel/libssh2_esp.git"
+    "url": "https://github.com/playmiel/libssh2_esp32.git"
   },
   "authors": [
     {
@@ -18,7 +18,7 @@
     }
   ],
   "license": "BSD-3-Clause",
-  "homepage": "https://github.com/playmiel/libssh2_esp",
+  "homepage": "https://github.com/playmiel/libssh2_esp32",
   "frameworks": ["arduino", "espidf"],
   "platforms": ["espressif32"],
   "headers": "libssh2_esp.h",
